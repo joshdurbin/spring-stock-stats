@@ -1,0 +1,7 @@
+spring:
+  cache:
+    caffeine:
+      spec: maximumSize=100,expireAfterAccess=600s
+stockstats:
+  provider: iex
+  pricePointLimit: 180
