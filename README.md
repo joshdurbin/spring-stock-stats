@@ -5,6 +5,8 @@ data, and runs analysis to determine the best, single, buy/sell dates for a stoc
 before sale events. The API will return the profit per share and the dates the purchase and sell of stock
 should occur on.
 
+[![CircleCI](https://circleci.com/gh/joshdurbin/spring-stock-stats.svg?style=svg)](https://circleci.com/gh/joshdurbin/spring-stock-stats)
+
 ## Setup
 
 1. Install the Oracle Java 8 JDK
