@@ -12,15 +12,12 @@ buildscript {
 }
 
 plugins {
-  id 'com.palantir.git-version' version '0.10.0'
+  id 'com.google.cloud.tools.jib' version '0.9.10'
 }
 
 apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
-apply plugin: 'com.bmuschko.docker-java-application'
-apply plugin: 'com.palantir.git-version'
-
 
 group = 'io.durbs'
 version = '0.0.1-SNAPSHOT'
@@ -39,23 +36,15 @@ dependencies {
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
-docker {
+jib {
+  to {
+    image = 'joshdurbin/spring-stock-stats'
 
-  if (System.getenv('CI')) {
-    url = System.getenv('DOCKER_HOST')
-    certPath = new File(System.getenv('DOCKER_CERT_PATH'))
-
-    registryCredentials {
-      username = System.getenv('DOCKER_USERNAME')
-      password = System.getenv('DOCKER_PASSWORD')
-      email = System.getenv('DOCKER_EMAIL')
+    if (System.getenv('CI')) {
+      auth {
+        username = System.getenv('DOCKER_USERNAME')
+        password = System.getenv('DOCKER_PASSWORD')
+      }
     }
-  }
-
-  javaApplication {
-    maintainer = 'Josh Durbin "durbinjo593@gmail.com"'
-    port = 5050
-    baseImage = 'anapsix/alpine-java:8_server-jre'
-    tag = "joshdurbin/spring-stock-stats:latest"
   }
 }
